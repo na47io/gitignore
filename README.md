@@ -4,15 +4,9 @@ A command-line tool to generate .gitignore files for different programming langu
 
 ## Installation
 
-1. Clone the repository:
+Install directly using curl:
 ```bash
-git clone https://github.com/na47io/gitignore.git
-cd gitignore
-```
-
-2. Run the installation script:
-```bash
-./install.sh
+curl -fsSL https://raw.githubusercontent.com/na47io/gitignore/main/install.sh | sh
 ```
 
 The script will install the tool to `~/.local/bin`. Make sure this directory is in your PATH.
