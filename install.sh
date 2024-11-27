@@ -9,7 +9,7 @@ mkdir -p "$INSTALL_DIR"
 echo "Installing gitignore to $INSTALL_DIR..."
 
 # Download the script
-curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/gitignore/main/gitignore -o "$INSTALL_DIR/gitignore"
+curl -fsSL https://raw.githubusercontent.com/na47io/gitignore/main/gitignore -o "$INSTALL_DIR/gitignore"
 chmod +x "$INSTALL_DIR/gitignore"
 
 echo "Successfully installed gitignore to $INSTALL_DIR/gitignore"
