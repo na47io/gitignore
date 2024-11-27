@@ -1,16 +1,10 @@
 #!/bin/bash
 
 # Determine install directory
-if [ -d "$HOME/bin" ]; then
-    INSTALL_DIR="$HOME/bin"
-else
-    INSTALL_DIR="/usr/local/bin"
-    # Check if we have sudo access
-    if [ ! -w "$INSTALL_DIR" ]; then
-        echo "Error: Installation requires sudo access to write to $INSTALL_DIR"
-        echo "Either run with sudo or create ~/bin and add it to your PATH"
-        exit 1
-    fi
+INSTALL_DIR="$HOME/bin"
+if [ ! -d "$INSTALL_DIR" ]; then
+    echo "Creating $INSTALL_DIR directory..."
+    mkdir -p "$INSTALL_DIR"
 fi
 
 # Download the script
