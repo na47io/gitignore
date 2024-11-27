@@ -1,41 +1,31 @@
-#!/bin/bash
+#!/bin/sh
+set -e
 
-# Determine install directory
-INSTALL_DIR="$HOME/bin"
-if [ ! -d "$INSTALL_DIR" ]; then
-    echo "Creating $INSTALL_DIR directory..."
-    mkdir -p "$INSTALL_DIR"
-fi
+# Find first writable directory in PATH
+detect_install_dir() {
+    IFS=":"
+    for dir in $PATH; do
+        if [ -w "$dir" ]; then
+            echo "$dir"
+            return
+        fi
+    done
+    echo "$HOME/.local/bin"
+}
+
+INSTALL_DIR=${INSTALL_DIR:-$(detect_install_dir)}
+
+# Create install directory if it doesn't exist
+mkdir -p "$INSTALL_DIR"
+
+echo "Installing gitignore to $INSTALL_DIR..."
 
 # Download the script
-echo "Downloading gitignore script..."
-curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/gitignore/main/gitignore -o gitignore.tmp
+curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/gitignore/main/gitignore -o "$INSTALL_DIR/gitignore.tmp"
 
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to download gitignore script"
-    rm -f gitignore.tmp
-    exit 1
-fi
-
-# Make it executable
-chmod +x gitignore.tmp
-
-# Move to install directory
-mv gitignore.tmp "$INSTALL_DIR/gitignore"
+# Make it executable and move to final location
+chmod +x "$INSTALL_DIR/gitignore.tmp"
+mv "$INSTALL_DIR/gitignore.tmp" "$INSTALL_DIR/gitignore"
 
 echo "Successfully installed gitignore to $INSTALL_DIR/gitignore"
-echo "You can now use 'gitignore <language>' to generate .gitignore files"
-
-# Add ~/bin to PATH if necessary
-if [ "$INSTALL_DIR" = "$HOME/bin" ]; then
-    if [[ ":$PATH:" != *":$HOME/bin:"* ]]; then
-        echo "Adding ~/bin to PATH in your shell configuration..."
-        if [ -f "$HOME/.zshrc" ]; then
-            echo 'export PATH="$HOME/bin:$PATH"' >> "$HOME/.zshrc"
-            echo "Please restart your shell or run: source ~/.zshrc"
-        elif [ -f "$HOME/.bashrc" ]; then
-            echo 'export PATH="$HOME/bin:$PATH"' >> "$HOME/.bashrc"
-            echo "Please restart your shell or run: source ~/.bashrc"
-        fi
-    fi
-fi
+echo "Make sure '$INSTALL_DIR' is in your PATH."
