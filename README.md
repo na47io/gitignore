@@ -1,13 +1,13 @@
-# Project Name
+# Gitignore Generator
 
-A brief description of what this project does.
+A command-line tool to generate .gitignore files for different programming languages using the gitignore.io API.
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/projectname.git
-cd projectname
+git clone https://github.com/na47io/gitignore.git
+cd gitignore
 ```
 
 2. Run the installation script:
@@ -15,18 +15,38 @@ cd projectname
 ./install.sh
 ```
 
+The script will install the tool to `~/.local/bin`. Make sure this directory is in your PATH.
+
 ## Usage
 
-Describe how to use the project here. Include examples of common use cases and any important command-line options.
+Generate a .gitignore file for a specific programming language:
+```bash
+gitignore python
+```
+
+Generate a .gitignore file in a specific directory:
+```bash
+gitignore python -o /path/to/directory
+```
+
+### Options:
+- `<language>`: Required. The programming language to generate rules for
+- `-o, --output`: Optional. Specify output directory (default: current directory)
 
 ## Requirements
 
-List any prerequisites or system requirements here.
+- curl
+- bash
+- Internet connection (to access gitignore.io API)
 
 ## Contributing
 
-Instructions for how to contribute to the project.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
-Specify the license under which this project is released.
+MIT License
